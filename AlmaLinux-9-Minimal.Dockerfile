@@ -11,7 +11,6 @@ RUN dnf -y update && \
       systemd \
       systemd-udev \
       systemd-resolved \
-      systemd-networkd \
       shadow-utils \
       iproute \
       iputils \
@@ -148,6 +147,17 @@ done
 
 
 
+# Limit network daemons to Droidspaces NAT mode.
+for unit in NetworkManager.service dhcpcd.service systemd-resolved.service systemd-networkd.service; do
+    if [ -f "$GUEST_SYSTEMD_PATH/$unit" ] || [ -e "/etc/systemd/system/multi-user.target.wants/$unit" ]; then
+        mkdir -p "/etc/systemd/system/${unit}.d"
+        cat > "/etc/systemd/system/${unit}.d/99-netmode-limit.conf" <<'EOF'
+[Service]
+ExecCondition=
+ExecCondition=/bin/sh -c "grep -qE 'net_mode=(nat|gateway)' /run/droidspaces/container.config"
+EOF
+    fi
+done
 
 echo "Post-extraction fixes applied on $(date)" > /etc/droidspaces
 EOF_RUN
