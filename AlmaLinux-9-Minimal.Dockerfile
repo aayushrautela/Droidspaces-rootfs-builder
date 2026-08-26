@@ -1,8 +1,7 @@
 # AlmaLinux-9-Minimal.Dockerfile
 # Stage 1: Build and customize AlmaLinux 9 rootfs for Droidspaces.
 
-ARG TARGETPLATFORM
-FROM --platform=$TARGETPLATFORM almalinux:9 AS customizer
+FROM almalinux:9 AS customizer
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
