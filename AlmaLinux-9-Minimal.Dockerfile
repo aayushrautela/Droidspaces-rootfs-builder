@@ -11,7 +11,7 @@ RUN dnf -y update && \
       systemd \
       systemd-udev \
       systemd-resolved \
-      systemd-networkd \
+      NetworkManager \
       shadow-utils \
       iproute \
       iputils \
