@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install packages.
 RUN dnf -y update && \
-    dnf -y install \
+    dnf -y --allowerasing install \
       systemd \
       systemd-udev \
       systemd-resolved \
