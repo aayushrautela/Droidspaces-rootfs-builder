@@ -28,8 +28,8 @@ jobs:
       - name: Find Build Templates
         id: find-templates
         run: |
-          # Find all *.Dockerfile files, extract names, and format as JSON array
-          TEMPLATES=$(ls *.Dockerfile | sed 's/\.Dockerfile//' | jq -R -s -c 'split("\n")[:-1]')
+          # Hardcoded to build only AlmaLinux
+          TEMPLATES='["AlmaLinux-9-Minimal"]'
           echo "templates=$TEMPLATES" >> $GITHUB_OUTPUT
           echo "Detected templates: $TEMPLATES"
 
